@@ -158,3 +158,26 @@ hf download prism-ml/Ternary-Bonsai-2-27B-gguf Ternary-Bonsai-2-27B-PQ2_0.gguf -
 ```
 
 Drop `-DGGML_CUDA=ON` with no NVIDIA card, and use `-ngl 0` for CPU only.
+
+## Optional, Jev gateway
+
+Recorded 10 October 2026 from the Mac, where `jev-gateway` 0.4.3 was installed on 1 October.
+The gateway is free and open source (`vinilana/jev-gateway` on GitHub), but Jev itself is a paid
+hosted model reached through OpenRouter, so it is not local and it spends OpenRouter credit.
+
+Install Node.js 22.15 or newer first, because Ubuntu's own `apt` package is too old. The
+NodeSource repository is one way.
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version
+npm install -g jev-gateway
+jev-claude
+```
+
+The first run of `jev-claude` asks which provider to use. Choose OpenRouter and paste the key
+from openrouter.ai/settings/keys, and it saves `JEV_PROVIDER` and `OPENROUTER_API_KEY` in
+`~/.jev-gateway/.env`. Copying that file from the Mac does the same job. After that, run
+`jev-claude` in place of `claude`. It starts Claude Code with `ANTHROPIC_BASE_URL` set to
+`http://127.0.0.1:8789`, and the log is `~/.jev-gateway/claude.log`.
